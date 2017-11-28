@@ -3,7 +3,9 @@ package mainpackage.traderevtest.datarepository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
+
 import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import mainpackage.traderevtest.BuildConfig;
@@ -41,12 +43,11 @@ public class UnsplashPhotosRepository {
 
     public LiveData<List<UnsplashPhoto>> getUnsplashPhotos(String page, String perPage, String orderBy) {
         final MutableLiveData<List<UnsplashPhoto>> data = new MutableLiveData<>();
-        unsplashPhotoService.getUnsplashPhotos(BuildConfig.UNSPLASH_CLIENT_ID, page, perPage, orderBy).subscribeOn(Schedulers.newThread())
+        unsplashPhotoService.getUnsplashPhotos(BuildConfig.UNSPLASH_CLIENT_ID, page, perPage, orderBy)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(unsplashPhotos -> {
-                    Log.e("User", unsplashPhotos.get(0).getUser().getName());
-                    data.setValue(unsplashPhotos);
-                });
+                .subscribe(data::setValue
+                        ,error -> Log.e("Error", error.getMessage()));
         return data;
     }
 }

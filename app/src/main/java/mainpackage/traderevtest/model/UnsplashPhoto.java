@@ -1,5 +1,9 @@
 package mainpackage.traderevtest.model;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
 /**
  * Created by deepp on 2017-11-28.
  */
@@ -8,7 +12,7 @@ public class UnsplashPhoto {
     private String id;
     private String created_at;
     private User user;
-    private Object urls;
+    private Urls urls;
 
 
     public String getId() {
@@ -35,11 +39,11 @@ public class UnsplashPhoto {
         this.user = user;
     }
 
-    public Object getUrls() {
+    public Urls getUrls() {
         return urls;
     }
 
-    public void setUrls(Object urls) {
+    public void setUrls(Urls urls) {
         this.urls = urls;
     }
 }

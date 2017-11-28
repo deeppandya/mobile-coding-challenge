@@ -1,6 +1,6 @@
 package mainpackage.traderevtest.model;
 
-import org.json.JSONObject;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by deepp on 2017-11-28.
@@ -9,7 +9,8 @@ import org.json.JSONObject;
 public class User {
     private String id;
     private String name;
-    private JSONObject profile_image;
+    @SerializedName("profile_image")
+    private ProfileImage profileImage;
 
     public String getId() {
         return id;
@@ -27,11 +28,11 @@ public class User {
         this.name = name;
     }
 
-    public JSONObject getProfileImage() {
-        return profile_image;
+    public ProfileImage getProfileImage() {
+        return profileImage;
     }
 
-    public void setProfileImage(JSONObject profileImage) {
-        this.profile_image = profileImage;
+    public void setProfileImage(ProfileImage profileImage) {
+        this.profileImage = profileImage;
     }
 }

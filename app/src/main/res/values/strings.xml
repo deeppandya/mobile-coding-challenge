@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TradeRevTest</string>
+    <string name="content_description">Content discription</string>
 </resources>
