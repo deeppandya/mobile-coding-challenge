@@ -12,6 +12,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'UNSPLASH_END_POINT', '"https://api.unsplash.com/"'
+        buildConfigField 'String', 'UNSPLASH_CLIENT_ID','"4f5455451cc11e0140ee5a061c7b1134a728fde200701a7e7e68bd0804bd1b87"'
     }
     buildTypes {
         release {
