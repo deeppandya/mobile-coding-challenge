@@ -2,11 +2,15 @@ package mainpackage.traderevtest.view;
 
 import android.annotation.TargetApi;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements UnsplashPhotoAdap
     private static final String PER_PAGE = "30";
     private static final String ORDER_BY = "latest";
     private static final int NUM_COLS = 3;
-    private List<UnsplashPhoto> unsplashPhotos;
+    private ArrayList<UnsplashPhoto> unsplashPhotos;
     private UnsplashPhotoAdapter mUnsplashPhotoAdapter;
     private ActivityMainBinding mActivityMainBinding;
     private int currentPage = 1;
@@ -85,7 +89,19 @@ public class MainActivity extends AppCompatActivity implements UnsplashPhotoAdap
     }
 
     @Override
-    public void onItemClick(View view, UnsplashPhoto unsplashPhoto) {
+    public void onItemClick(View view, UnsplashPhoto unsplashPhoto,int position) {
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, view, "transition");
+        int revealX = (int) (view.getX() + view.getWidth() / 2);
+        int revealY = (int) (view.getY() + view.getHeight() / 2);
 
+        Intent intent = new Intent(this, UnsplashPhotoDetailActivity.class);
+        intent.putExtra(UnsplashPhotoDetailActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
+        intent.putExtra(UnsplashPhotoDetailActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
+        intent.putExtra("currentPage",currentPage);
+        intent.putExtra("position",position);
+        intent.putParcelableArrayListExtra("data",unsplashPhotos);
+
+        ActivityCompat.startActivity(this, intent, options.toBundle());
     }
 }

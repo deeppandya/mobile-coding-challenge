@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -22,9 +20,9 @@ public class UnsplashPhotoAdapter extends RecyclerView.Adapter<UnsplashPhotoAdap
     private List<UnsplashPhoto> unsplashPhotos;
     private OnItemClickListener onItemClickListener;
 
-    public UnsplashPhotoAdapter(List<UnsplashPhoto> unsplashPhotos,OnItemClickListener onItemClickListener) {
+    public UnsplashPhotoAdapter(List<UnsplashPhoto> unsplashPhotos, OnItemClickListener onItemClickListener) {
         this.unsplashPhotos = unsplashPhotos;
-        this.onItemClickListener=onItemClickListener;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -35,8 +33,8 @@ public class UnsplashPhotoAdapter extends RecyclerView.Adapter<UnsplashPhotoAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        UnsplashPhoto unsplashPhoto=unsplashPhotos.get(position);
-        holder.bind(unsplashPhoto,onItemClickListener);
+        UnsplashPhoto unsplashPhoto = unsplashPhotos.get(position);
+        holder.bind(unsplashPhoto, onItemClickListener);
     }
 
     @Override
@@ -44,26 +42,25 @@ public class UnsplashPhotoAdapter extends RecyclerView.Adapter<UnsplashPhotoAdap
         return unsplashPhotos.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imgPhoto;
-        TextView tvPhotoUser;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            imgPhoto=itemView.findViewById(R.id.img_photo);
+            imgPhoto = itemView.findViewById(R.id.img_photo);
         }
 
-        void bind(UnsplashPhoto unsplashPhoto, OnItemClickListener onItemClickListener){
+        void bind(UnsplashPhoto unsplashPhoto, OnItemClickListener onItemClickListener) {
             Glide.with(itemView.getContext())
                     .load(unsplashPhoto.getUrls().thumb)
                     .into(imgPhoto);
-            itemView.setOnClickListener(view->onItemClickListener.onItemClick(itemView,unsplashPhoto));
+            itemView.setOnClickListener(view -> onItemClickListener.onItemClick(itemView, unsplashPhoto, getAdapterPosition()));
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view,UnsplashPhoto unsplashPhoto);
+        void onItemClick(View view, UnsplashPhoto unsplashPhoto, int position);
     }
 }
