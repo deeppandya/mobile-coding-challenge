@@ -2,10 +2,7 @@ package mainpackage.traderevtest.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.google.gson.JsonObject;
-
-import org.json.JSONObject;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by deepp on 2017-11-28.
@@ -13,24 +10,36 @@ import org.json.JSONObject;
 
 public class UnsplashPhoto implements Parcelable {
     private String id;
-    private String created_at;
+    @SerializedName("created_at")
+    private String createdAt;
     private User user;
     private Urls urls;
-
+    private int likes;
+    private int width;
+    private int height;
+    private String description;
 
     private UnsplashPhoto(Parcel in) {
         id = in.readString();
-        created_at = in.readString();
+        createdAt = in.readString();
         user = in.readParcelable(User.class.getClassLoader());
         urls = in.readParcelable(Urls.class.getClassLoader());
+        likes=in.readInt();
+        width=in.readInt();
+        height=in.readInt();
+        description=in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(created_at);
+        dest.writeString(createdAt);
         dest.writeParcelable(user, flags);
         dest.writeParcelable(urls, flags);
+        dest.writeInt(likes);
+        dest.writeInt(width);
+        dest.writeInt(height);
+        dest.writeString(description);
     }
 
     @Override
@@ -59,7 +68,7 @@ public class UnsplashPhoto implements Parcelable {
     }
 
     public String getCreatedAt() {
-        return created_at;
+        return createdAt;
     }
 
     public User getUser() {
@@ -68,5 +77,21 @@ public class UnsplashPhoto implements Parcelable {
 
     public Urls getUrls() {
         return urls;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

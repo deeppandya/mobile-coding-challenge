@@ -6,13 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-
+import android.widget.TextView;
 import java.util.ArrayList;
-
 import mainpackage.traderevtest.R;
+import mainpackage.traderevtest.iview.UnsplashPhotoDetailView;
 import mainpackage.traderevtest.model.UnsplashPhoto;
+import mainpackage.traderevtest.utils.GlideApp;
 
 /**
  * Created by deeppandya on 2017-11-28.
@@ -22,10 +21,12 @@ public class UnsplashPhotoViewPagerAdapter extends PagerAdapter {
     private Context context;
     private ArrayList<UnsplashPhoto> unsplashPhotos;
     private LayoutInflater mLayoutInflater;
+    private UnsplashPhotoDetailView unsplashPhotoDetailView;
 
-    public UnsplashPhotoViewPagerAdapter(Context context, ArrayList<UnsplashPhoto> unsplashPhotos) {
+    public UnsplashPhotoViewPagerAdapter(Context context, ArrayList<UnsplashPhoto> unsplashPhotos,UnsplashPhotoDetailView unsplashPhotoDetailView) {
         this.context = context;
         this.unsplashPhotos = unsplashPhotos;
+        this.unsplashPhotoDetailView=unsplashPhotoDetailView;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -37,25 +38,27 @@ public class UnsplashPhotoViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-//        ImageView img = new ImageView(activity);
-//        ((ViewPager) container).addView(img);
-//        Glide.with(activity)
-//                .load(unsplashPhotos.get(position).getUrls().full)
-//                .into(img);
-//
-////        if (pos >= image.length - 1)
-////            pos = 0;
-////        else
-////            ++pos;
-//
-//        return img;
 
         View itemView = mLayoutInflater.inflate(R.layout.unsplash_photo_pager_item, container, false);
 
-        ImageView imageView = itemView.findViewById(R.id.imageView);
-        Glide.with(context)
-                .load(unsplashPhotos.get(position).getUrls().full)
-                .into(imageView);
+        ImageView imgMain = itemView.findViewById(R.id.img_main);
+
+        TextView tvDimension=itemView.findViewById(R.id.tv_photo_dimension);
+        TextView tvCreatedDate=itemView.findViewById(R.id.tv_created_date);
+        TextView tvDescription=itemView.findViewById(R.id.tv_photo_description);
+
+        GlideApp.with(context)
+                .load(unsplashPhotos.get(position).getUrls().getFull())
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_error)
+                .fallback(R.drawable.ic_error)
+                .into(imgMain);
+
+        tvDimension.setText(String.format(context.getString(R.string.dimension_text),unsplashPhotos.get(position).getWidth(),unsplashPhotos.get(position).getHeight()));
+        tvCreatedDate.setText(String.format(context.getString(R.string.created_date_text),unsplashPhotos.get(position).getCreatedAt()!=null?unsplashPhotos.get(position).getCreatedAt():""));
+        tvDescription.setText(unsplashPhotos.get(position).getDescription()!=null?unsplashPhotos.get(position).getDescription():"");
+
+        unsplashPhotoDetailView.setActionBarForPhoto(unsplashPhotos.get(position));
 
         container.addView(itemView);
 

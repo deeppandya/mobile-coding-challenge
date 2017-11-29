@@ -5,12 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import com.bumptech.glide.Glide;
-
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
-
 import mainpackage.traderevtest.R;
 import mainpackage.traderevtest.model.UnsplashPhoto;
+import mainpackage.traderevtest.utils.GlideApp;
 
 /**
  * Created by deeppandya on 2017-11-28.
@@ -48,13 +47,16 @@ public class UnsplashPhotoAdapter extends RecyclerView.Adapter<UnsplashPhotoAdap
 
         ViewHolder(View itemView) {
             super(itemView);
-
             imgPhoto = itemView.findViewById(R.id.img_photo);
         }
 
         void bind(UnsplashPhoto unsplashPhoto, OnItemClickListener onItemClickListener) {
-            Glide.with(itemView.getContext())
-                    .load(unsplashPhoto.getUrls().thumb)
+            GlideApp.with(itemView.getContext())
+                    .load(unsplashPhoto.getUrls().getThumb())
+                    .placeholder(R.drawable.ic_placeholder)
+                    .error(R.drawable.ic_error)
+                    .fallback(R.drawable.ic_error)
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .into(imgPhoto);
             itemView.setOnClickListener(view -> onItemClickListener.onItemClick(itemView, unsplashPhoto, getAdapterPosition()));
         }

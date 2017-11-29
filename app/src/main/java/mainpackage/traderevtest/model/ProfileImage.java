@@ -41,4 +41,16 @@ public class ProfileImage implements Parcelable {
             return new ProfileImage[size];
         }
     };
+
+    public String getSmall() {
+        return small;
+    }
+
+    public String getMedium() {
+        return medium;
+    }
+
+    public String getLarge() {
+        return large;
+    }
 }

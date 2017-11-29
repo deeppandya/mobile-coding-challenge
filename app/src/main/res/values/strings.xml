@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TradeRevTest</string>
     <string name="content_description">Content discription</string>
+    <string name="dimension_text">Photo dimension : %d X %d</string>
+    <string name="created_date_text">Created date : %s</string>
+    <string name="username_text">%s</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
 </resources>

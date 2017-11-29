@@ -3,7 +3,6 @@ package mainpackage.traderevtest.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import java.util.List;
-
 import mainpackage.traderevtest.datarepository.UnsplashPhotosRepository;
 import mainpackage.traderevtest.model.UnsplashPhoto;
 

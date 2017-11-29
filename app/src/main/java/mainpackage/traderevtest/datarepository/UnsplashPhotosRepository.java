@@ -3,9 +3,7 @@ package mainpackage.traderevtest.datarepository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
-
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import mainpackage.traderevtest.BuildConfig;

@@ -9,10 +9,10 @@ import android.os.Parcelable;
 
 public class Urls implements Parcelable {
     private String raw;
-    public String full;
+    private String full;
     private String regular;
     private String small;
-    public String thumb;
+    private String thumb;
 
     private Urls(Parcel in) {
         raw = in.readString();
@@ -47,4 +47,24 @@ public class Urls implements Parcelable {
             return new Urls[size];
         }
     };
+
+    public String getRaw() {
+        return raw;
+    }
+
+    public String getFull() {
+        return full;
+    }
+
+    public String getRegular() {
+        return regular;
+    }
+
+    public String getSmall() {
+        return small;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
 }
