@@ -8,7 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import mainpackage.traderevtest.view.MainActivity;
 import mainpackage.traderevtest.view.UnsplashPhotoDetailActivity;
 
 import static android.support.test.espresso.Espresso.onView;

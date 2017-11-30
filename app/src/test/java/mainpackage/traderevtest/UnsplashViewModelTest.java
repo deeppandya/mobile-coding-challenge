@@ -1,16 +1,13 @@
 package mainpackage.traderevtest;
 
-import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Scheduler;
@@ -19,7 +16,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.internal.schedulers.ExecutorScheduler;
 import io.reactivex.plugins.RxJavaPlugins;
 import mainpackage.traderevtest.datarepository.UnsplashPhotosRepository;
-import mainpackage.traderevtest.model.UnsplashPhoto;
 import mainpackage.traderevtest.networkcalls.UnsplashPhotoService;
 import mainpackage.traderevtest.viewmodel.UnsplashPhotosViewModel;
 import retrofit2.Retrofit;

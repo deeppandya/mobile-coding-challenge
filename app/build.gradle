@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+        }
+    }
     compileSdkVersion 26
     testOptions {
         unitTests.returnDefaultValues = true
@@ -25,6 +29,7 @@ android {
             //debuggable true
             project.ext.set("archivesBaseName", "TradeRevTest-" + defaultConfig.versionName)
             shrinkResources true
+            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix
@@ -32,7 +37,6 @@ android {
             project.ext.set("archivesBaseName", "TradeRevTest-" + defaultConfig.versionName)
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -55,7 +59,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.2") {
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'support-v7'
@@ -64,7 +68,6 @@ dependencies {
     }
     testCompile 'org.mockito:mockito-core:2.8.47'
     compile 'com.android.support:multidex:1.0.2'
-
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     //Retrofit converters and adapters
@@ -86,11 +89,7 @@ dependencies {
     //Dagger
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     compile "com.google.dagger:dagger:$project.daggerVersion"
-
     compile "com.google.dagger:dagger-android:$project.daggerVersion"
     compile "com.google.dagger:dagger-android-support:$project.daggerVersion"
-
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-
-//    testCompile 'com.squareup.okhttp3:mockwebserver:3.8.1'
 }
