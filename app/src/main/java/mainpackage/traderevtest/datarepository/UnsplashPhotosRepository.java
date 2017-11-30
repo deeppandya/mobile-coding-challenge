@@ -25,7 +25,7 @@ public class UnsplashPhotosRepository {
     private UnsplashPhotoService unsplashPhotoService;
 
     @Inject
-    UnsplashPhotosRepository(UnsplashPhotoService unsplashPhotoService) {
+    public UnsplashPhotosRepository(UnsplashPhotoService unsplashPhotoService) {
         this.unsplashPhotoService = unsplashPhotoService;
     }
 
