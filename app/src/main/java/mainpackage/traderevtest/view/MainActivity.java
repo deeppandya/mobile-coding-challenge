@@ -1,23 +1,37 @@
 package mainpackage.traderevtest.view;
 
+import android.app.Activity;
+import android.app.Application;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import mainpackage.traderevtest.R;
 import mainpackage.traderevtest.adapter.UnsplashPhotoAdapter;
 import mainpackage.traderevtest.listener.InfiniteScrollListener;
 import mainpackage.traderevtest.model.UnsplashPhoto;
 import mainpackage.traderevtest.utils.Constants;
 import mainpackage.traderevtest.viewmodel.UnsplashPhotosViewModel;
+
+import static dagger.internal.Preconditions.checkNotNull;
 
 public class MainActivity extends AppCompatActivity implements UnsplashPhotoAdapter.OnItemClickListener {
     private static final String PER_PAGE = "30";
@@ -30,13 +44,17 @@ public class MainActivity extends AppCompatActivity implements UnsplashPhotoAdap
     private RecyclerView recyclerView;
     private ProgressBar itemProgressBar;
 
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        inject();
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
 
-        unsplashPhotosViewModel = ViewModelProviders.of(this).get(UnsplashPhotosViewModel.class);
+        unsplashPhotosViewModel = ViewModelProviders.of(this, viewModelFactory).get(UnsplashPhotosViewModel.class);
 
         setViews();
 
@@ -44,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements UnsplashPhotoAdap
 
         addDataToList(currentPage);
     }
+
+
 
     private void setRecyclerViewForPhotos() {
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, NUM_COLS);
@@ -97,5 +117,21 @@ public class MainActivity extends AppCompatActivity implements UnsplashPhotoAdap
         intent.putParcelableArrayListExtra(Constants.PHOTOS,unsplashPhotos);
 
         ActivityCompat.startActivity(this, intent, options.toBundle());
+    }
+
+    private void inject() {
+        Application application = getApplication();
+        if(application == null) {
+            application = (Application) getApplicationContext();
+        }
+
+        if (!(application instanceof HasActivityInjector)) {
+            throw new RuntimeException(String.format("%s does not implement %s", application.getClass().getCanonicalName(), HasActivityInjector.class.getCanonicalName()));
+        }
+
+        AndroidInjector<Activity> activityInjector = ((HasActivityInjector) application).activityInjector();
+        checkNotNull(activityInjector, "%s.activityInjector() returned null", application.getClass().getCanonicalName());
+
+        activityInjector.inject(this);
     }
 }

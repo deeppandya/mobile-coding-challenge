@@ -182,6 +182,8 @@ public class UnsplashPhotoDetailActivity extends AppCompatActivity implements Un
 
         GlideApp.with(UnsplashPhotoDetailActivity.this)
                 .load(unsplashPhoto.getUser().getProfileImage().getMedium())
+                .placeholder(getResources().getDrawable(R.drawable.ic_user))
+                .error(getResources().getDrawable(R.drawable.ic_user))
                 .into(imgUser);
 
         tvUsername.setText(String.format(getString(R.string.username_text), unsplashPhoto.getUser().getName() != null ? unsplashPhoto.getUser().getName() : ""));

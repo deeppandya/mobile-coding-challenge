@@ -57,6 +57,7 @@ public class UnsplashPhotoAdapter extends RecyclerView.Adapter<UnsplashPhotoAdap
                     .error(R.drawable.ic_error)
                     .fallback(R.drawable.ic_error)
                     .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .override(200,200)
                     .into(imgPhoto);
             itemView.setOnClickListener(view -> onItemClickListener.onItemClick(itemView, unsplashPhoto, getAdapterPosition()));
         }

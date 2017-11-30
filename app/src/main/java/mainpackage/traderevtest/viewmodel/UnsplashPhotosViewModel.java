@@ -2,7 +2,11 @@ package mainpackage.traderevtest.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+
 import java.util.List;
+
+import javax.inject.Inject;
+
 import mainpackage.traderevtest.datarepository.UnsplashPhotosRepository;
 import mainpackage.traderevtest.model.UnsplashPhoto;
 
@@ -14,8 +18,9 @@ public class UnsplashPhotosViewModel extends ViewModel {
 
     private UnsplashPhotosRepository unsplashPhotosRepository;
 
-    public UnsplashPhotosViewModel() {
-        unsplashPhotosRepository = UnsplashPhotosRepository.getInstance();
+    @Inject
+    public UnsplashPhotosViewModel(UnsplashPhotosRepository unsplashPhotosRepository) {
+        this.unsplashPhotosRepository=unsplashPhotosRepository;
     }
 
     public LiveData<List<UnsplashPhoto>> getUnsplashPhotos(String page,String perPage,String orderBy) {
