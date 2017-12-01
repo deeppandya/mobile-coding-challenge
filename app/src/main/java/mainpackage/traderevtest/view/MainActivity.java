@@ -113,7 +113,19 @@ public class MainActivity extends AppCompatActivity implements UnsplashPhotoAdap
         intent.putExtra(Constants.POSITION,position);
         intent.putParcelableArrayListExtra(Constants.PHOTOS,unsplashPhotos);
 
-        ActivityCompat.startActivity(this, intent, options.toBundle());
+        ActivityCompat.startActivityForResult(this, intent,Constants.REQUESTCODE, options.toBundle());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == Constants.REQUESTCODE){
+            if(resultCode == RESULT_OK){
+                int newPosition = data.getIntExtra(Constants.POSITION, 0);
+                recyclerView.smoothScrollToPosition(newPosition);
+            }
+        }
     }
 
     private void inject() {

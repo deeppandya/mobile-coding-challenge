@@ -8,4 +8,5 @@ public class Constants {
     public static final String CURRENT_PAGE = "currentPage";
     public static final String POSITION = "position";
     public static final String PHOTOS = "photos";
+    public static final int REQUESTCODE=2;
 }

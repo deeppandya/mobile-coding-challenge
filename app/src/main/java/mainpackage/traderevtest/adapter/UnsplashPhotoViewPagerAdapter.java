@@ -41,6 +41,8 @@ public class UnsplashPhotoViewPagerAdapter extends PagerAdapter {
 
         View itemView = mLayoutInflater.inflate(R.layout.unsplash_photo_pager_item, container, false);
 
+        UnsplashPhoto unsplashPhoto=unsplashPhotos.get(position);
+
         ImageView imgMain = itemView.findViewById(R.id.img_main);
 
         TextView tvDimension=itemView.findViewById(R.id.tv_photo_dimension);
@@ -48,17 +50,17 @@ public class UnsplashPhotoViewPagerAdapter extends PagerAdapter {
         TextView tvDescription=itemView.findViewById(R.id.tv_photo_description);
 
         GlideApp.with(context)
-                .load(unsplashPhotos.get(position).getUrls().getFull())
+                .load(unsplashPhoto.getUrls().getFull())
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_error)
                 .fallback(R.drawable.ic_error)
                 .into(imgMain);
 
-        tvDimension.setText(String.format(context.getString(R.string.dimension_text),unsplashPhotos.get(position).getWidth(),unsplashPhotos.get(position).getHeight()));
-        tvCreatedDate.setText(String.format(context.getString(R.string.created_date_text),unsplashPhotos.get(position).getCreatedAt()!=null?unsplashPhotos.get(position).getCreatedAt():""));
-        tvDescription.setText(unsplashPhotos.get(position).getDescription()!=null?unsplashPhotos.get(position).getDescription():"");
+        tvDimension.setText(String.format(context.getString(R.string.dimension_text),unsplashPhoto.getWidth(),unsplashPhoto.getHeight()));
+        tvCreatedDate.setText(String.format(context.getString(R.string.created_date_text),unsplashPhoto.getCreatedAt()!=null?unsplashPhoto.getCreatedAt():""));
+        tvDescription.setText(unsplashPhoto.getDescription()!=null?unsplashPhoto.getDescription():"");
 
-        unsplashPhotoDetailView.setActionBarForPhoto(unsplashPhotos.get(position));
+        unsplashPhotoDetailView.setActionBarForPhoto(unsplashPhoto);
 
         container.addView(itemView);
 

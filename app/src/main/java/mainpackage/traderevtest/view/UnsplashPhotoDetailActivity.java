@@ -72,7 +72,10 @@ public class UnsplashPhotoDetailActivity extends AppCompatActivity implements Un
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Intent data = new Intent();
+                data.putExtra(Constants.POSITION, pager.getCurrentItem());
+                setResult(RESULT_OK, data);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && position==pager.getCurrentItem()) {
                     unRevealActivity();
                 }else{
                     finish();
@@ -167,7 +170,12 @@ public class UnsplashPhotoDetailActivity extends AppCompatActivity implements Un
 
     @Override
     public void onBackPressed() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+        Intent data = new Intent();
+        data.putExtra(Constants.POSITION, pager.getCurrentItem());
+        setResult(RESULT_OK, data);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && position==pager.getCurrentItem()) {
             unRevealActivity();
         }else{
             super.onBackPressed();
