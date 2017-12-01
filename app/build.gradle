@@ -92,4 +92,7 @@ dependencies {
     compile "com.google.dagger:dagger-android:$project.daggerVersion"
     compile "com.google.dagger:dagger-android-support:$project.daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //PinchToZoom
+    compile 'com.bogdwellers:pinchtozoom:0.1'
 }

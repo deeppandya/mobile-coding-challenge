@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
+
 import java.util.ArrayList;
 import mainpackage.traderevtest.R;
 import mainpackage.traderevtest.iview.UnsplashPhotoDetailView;
@@ -32,7 +35,7 @@ public class UnsplashPhotoViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return unsplashPhotos.size();
     }
 
 
@@ -44,6 +47,7 @@ public class UnsplashPhotoViewPagerAdapter extends PagerAdapter {
         UnsplashPhoto unsplashPhoto=unsplashPhotos.get(position);
 
         ImageView imgMain = itemView.findViewById(R.id.img_main);
+        imgMain.setOnTouchListener(new ImageMatrixTouchHandler(itemView.getContext()));
 
         TextView tvDimension=itemView.findViewById(R.id.tv_photo_dimension);
         TextView tvCreatedDate=itemView.findViewById(R.id.tv_created_date);
